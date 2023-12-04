@@ -58,7 +58,15 @@ export const Header = () => {
                   isActive ? "nav-item nav-link active" : "nav-item nav-link"
                 }
               >
-                Sign up
+                Sign in
+              </NavLink>
+              <NavLink
+                to="/signup"
+                className={({ isActive }) =>
+                  isActive ? "nav-item nav-link active" : "nav-item nav-link"
+                }
+              >
+                Sign out
               </NavLink>
             </div>
             <a href className="btn btn-primary py-2 px-4">

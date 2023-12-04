@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Header } from "./components/Header";
-import { Footer } from './components/Footer'
+import { Header } from "./components/Header/Header";
+import { Footer } from './components/Footer/Footer'
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from './pages/AboutPage'
 import { MenuPage } from './pages/MenuPage'

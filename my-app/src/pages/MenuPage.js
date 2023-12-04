@@ -1,5 +1,5 @@
 
-import { Menu } from "../components/Menu"
+import { Menu } from "../components/Menu/Menu"
 
 export const MenuPage = () => {
     return (
