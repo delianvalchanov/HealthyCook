@@ -1,6 +1,24 @@
 import { NavLink } from "react-router-dom";
+import { SignInModal } from "./SignInModal";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 export const Header = () => {
+  const [show, setShow] = useState(false)
+
+  const toggleShow = () => {
+    setShow(!show)
+  }
+
+  const successfullSubmission = () => {
+    toast.success("You successfully signed!", {
+      duration: 1000,
+    });
+    setTimeout(() => {
+      setShow(!show);
+    }, 1000);
+  };
+
   return (
     <div>
       <div className="container-xxl position-relative p-0">
@@ -53,7 +71,8 @@ export const Header = () => {
                 Contact
               </NavLink>
               <NavLink
-                to="/signup"
+                to="/signin"
+                onClick={toggleShow}
                 className={({ isActive }) =>
                   isActive ? "nav-item nav-link active" : "nav-item nav-link"
                 }
@@ -61,7 +80,7 @@ export const Header = () => {
                 Sign in
               </NavLink>
               <NavLink
-                to="/signup"
+                to="/logout"
                 className={({ isActive }) =>
                   isActive ? "nav-item nav-link active" : "nav-item nav-link"
                 }
@@ -105,6 +124,11 @@ export const Header = () => {
           </div>
         </div>
       </div>
+      <SignInModal
+        show={show}
+        toggleShow={toggleShow}
+        successfullSubmission={successfullSubmission}
+      />
     </div>
   );
 };

@@ -8,6 +8,7 @@ import { ContactPage } from './pages/ContactPage'
 
 import { Routes, Route } from 'react-router-dom'
 import './App.css';
+import { SignInModal } from "./components/Header/SignInModal";
 
 function App() {
   return (
