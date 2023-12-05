@@ -149,6 +149,12 @@
     }
 }
 
+.nav-item{
+    color: #FEA116;
+}
+.nav-item.show{
+    color: black;
+}
 
 /*** Hero Header ***/
 .hero-header {
