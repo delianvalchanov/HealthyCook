@@ -497,3 +497,7 @@
 .form-label{
   margin-bottom: 0 !important;
 }
+a{
+  color: inherit !important;
+  text-decoration: inherit !important;
+}
