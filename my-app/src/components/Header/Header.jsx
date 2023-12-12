@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { SignInModal } from "./SignInModal";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -8,9 +8,13 @@ import { signOut } from "firebase/auth";
 
 export const Header = () => {
    const [show, setShow] = useState(false);
+   const navigate = useNavigate();
 
    const toggleShow = () => {
       setShow(!show);
+      if (show) {
+         navigate("/");
+      }
    };
 
    const logout = async () => {
@@ -88,7 +92,8 @@ export const Header = () => {
                      >
                         Contact
                      </NavLink>
-                     <Button
+                     <NavLink
+                        to="/login"
                         onClick={toggleShow}
                         className={({ isActive }) =>
                            isActive
@@ -97,8 +102,9 @@ export const Header = () => {
                         }
                      >
                         Sign in
-                     </Button>
-                     <Button
+                     </NavLink>
+                     <NavLink
+                        to="/logout"
                         onClick={logout}
                         className={({ isActive }) =>
                            isActive
@@ -107,7 +113,7 @@ export const Header = () => {
                         }
                      >
                         Sign out
-                     </Button>
+                     </NavLink>
                   </div>
                   <a href className="btn btn-primary py-2 px-4">
                      Order meal
@@ -130,7 +136,7 @@ export const Header = () => {
                         easy to make meals!
                      </p>
                      <a
-                        href
+                        href="#"
                         className="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft"
                      >
                         Order meal

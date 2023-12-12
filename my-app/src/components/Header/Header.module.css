@@ -1,74 +1,76 @@
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Nunito';
- }
-
- .socialButtons{
    display: flex;
-   flex-direction: row;
-   justify-content: space-around;
+   justify-content: center;
    align-items: center;
-   margin: 1rem 0;
- }
- button.social{
-   width: 3rem;
-   height: 3rem;
-   border-radius: 1.5rem;
-   background-color: transparent;
-   border: none;
- }
+   font-family: 'Nunito';
+}
+
+.socialButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 0;
+}
+button.social{
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  background-color: transparent;
+  border: none;
+}
 .facebookIcon{
-   color: blue;
+  color: blue;
 }
 .googleIcon {
 color: rgb(190, 1, 1);
 }
 .twitterIcon{
-   color: #1DA1F2;
+  color: #1DA1F2;
 }
- .optionsDesc{
-   text-align: center;
- }
- .wrapper label,
- .wrapper input {
-    display: block;
- }
- 
- #login {
-    margin-top: 1rem;
- }
- 
- .authField {
-    padding: 6.5px;
-    width: 100%;
-    border-radius: 6px !important;
-    border: 1px solid grey;
- }
- .authField:focus-visible {
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      outline: none;
- }
- 
- .inputerr{
-    padding: 6.5px;
-    width: 100%;
-    border: 1px solid red;
- }
- 
- .submit {
-    margin: 0.5rem 0;
- }
- 
- .field {
-    font-style: italic;
-    opacity: 0.5;
- }
- 
- .field a {
-    opacity: 1;
-    font-weight: bold;
-    color: red;
- }
- 
+#google, #facebook, #twitter {
+   background-color: transparent !important;
+}
+.optionsDesc{
+  text-align: center;
+}
+.wrapper label,
+.wrapper input {
+   display: block;
+}
+
+#login {
+   margin-top: 1rem;
+}
+
+.authField {
+   padding: 6.5px;
+   width: 100%;
+   border-radius: 6px !important;
+   border: 1px solid grey;
+}
+.authField:focus-visible {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+     outline: none;
+}
+
+.inputerr{
+   padding: 6.5px;
+   width: 100%;
+   border: 1px solid red;
+}
+
+.submit {
+   margin: 0.5rem 0;
+}
+
+.field {
+   font-style: italic;
+   opacity: 0.5;
+}
+
+.field a {
+   opacity: 1;
+   font-weight: bold;
+   color: red;
+}

@@ -15,17 +15,39 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import HeaderCSS from "./Header.module.css";
 import { useState } from "react";
-import { auth, googleAuthProvider } from "../../config/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { Link } from "react-router-dom";
+import {
+   auth,
+   googleAuthProvider,
+   facebookAuthProvider,
+   twitterAuthProvider,
+} from "../../config/firebase";
+import {
+   createUserWithEmailAndPassword,
+   signInWithEmailAndPassword,
+   signInWithPopup,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
+   const navigate = useNavigate();
 
-   console.log(auth?.currentUser?.email);
-   const onLoginSubmit = async () => {
+   const onRegisterSubmit = async () => {
       try {
          await createUserWithEmailAndPassword(auth, email, password);
+         navigate("/");
+      } catch (err) {
+         console.error(err);
+      }
+   };
+
+   const onLoginSubmit = async (e) => {
+      e.preventDefault();
+      try {
+         await signInWithEmailAndPassword(auth, email, password);
+         navigate("/");
       } catch (err) {
          console.error(err);
       }
@@ -34,6 +56,20 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
    const signInWithGoogle = async () => {
       try {
          await signInWithPopup(auth, googleAuthProvider);
+      } catch (err) {
+         console.error(err);
+      }
+   };
+   const signInWithFacebook = async () => {
+      try {
+         await signInWithPopup(auth, facebookAuthProvider);
+      } catch (err) {
+         console.error(err);
+      }
+   };
+   const signInWithTwitter = async () => {
+      try {
+         await signInWithPopup(auth, twitterAuthProvider);
       } catch (err) {
          console.error(err);
       }
@@ -51,13 +87,19 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                defaultActiveKey="signIn"
             >
                <Tab className={HeaderCSS.tab} eventKey="signIn" title="Sign in">
-                  <Form method="POST" autoComplete="on" id={HeaderCSS["login"]}>
+                  <Form
+                     method="POST"
+                     onSubmit={onLoginSubmit}
+                     autoComplete="on"
+                     id={HeaderCSS["login"]}
+                  >
                      <Container className="container">
                         <p className={HeaderCSS.optionsDesc}>
                            with your social network
                         </p>
                         <ButtonGroup className={HeaderCSS.socialButtons}>
-                           <button
+                           <Button
+                              onClick={signInWithFacebook}
                               className={HeaderCSS.social}
                               id={HeaderCSS["facebook"]}
                            >
@@ -66,7 +108,7 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                                  className={`fa-3x ${HeaderCSS.facebookIcon}`}
                                  icon={faFacebook}
                               />{" "}
-                           </button>
+                           </Button>
                            <Button
                               onClick={signInWithGoogle}
                               className={HeaderCSS.social}
@@ -78,22 +120,24 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                                  icon={faGoogle}
                               />{" "}
                            </Button>
-                           <button
+                           <Button
+                              onClick={signInWithTwitter}
                               className={HeaderCSS.social}
-                              id={HeaderCSS["apple"]}
+                              id={HeaderCSS["twitter"]}
                            >
                               {" "}
                               <FontAwesomeIcon
                                  className={`fa-3x ${HeaderCSS.twitterIcon}`}
                                  icon={faTwitter}
                               />{" "}
-                           </button>
+                           </Button>
                         </ButtonGroup>
                         <p className={HeaderCSS.optionsDesc}>or</p>
                         <InputGroup className="mb-2">
                            <FormLabel htmlFor="email">Email: </FormLabel>
                            <input
                               className={HeaderCSS.authField}
+                              value={email}
                               onChange={(e) => setEmail(e.target.value)}
                               type="email"
                               name="email"
@@ -108,13 +152,14 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                            <input
                               className={HeaderCSS.authField}
                               onChange={(e) => setPassword(e.target.value)}
+                              value={password}
                               type="password"
                               name="password"
                               id="password"
                            />
                         </InputGroup>
                         <Button
-                           onClick={onLoginSubmit}
+                           type="submit"
                            className={`w-100 mb-2 ${HeaderCSS.submit}`}
                         >
                            Login
@@ -130,16 +175,17 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                </Tab>
                <Tab className={HeaderCSS.tab} eventKey="signUp" title="Sign up">
                   <Form
-                     method="POST"
+                     onSubmit={onRegisterSubmit}
                      autoComplete="off"
                      className="pt-4"
-                     id={HeaderCSS["login"]}
                   >
                      <Container className="container">
                         <InputGroup className="mb-2">
                            <FormLabel htmlFor="email">Email: </FormLabel>
                            <input
                               className={HeaderCSS.authField}
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
                               type="email"
                               name="email"
                               id="email"
@@ -152,6 +198,8 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                            </FormLabel>
                            <input
                               className={HeaderCSS.authField}
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
                               type="password"
                               name="password"
                               id="password"
@@ -171,15 +219,9 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                         <Button
                            type="submit"
                            className={`w-100 ${HeaderCSS.submit}`}
-                           value="Submit"
                         >
                            Register
                         </Button>
-                        <p>
-                           <span>
-                              If you have profile, click <a href="#">here</a>
-                           </span>
-                        </p>
                      </Container>
                   </Form>
                </Tab>
