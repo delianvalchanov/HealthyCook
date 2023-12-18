@@ -9,10 +9,11 @@ import { ContactPage } from "./pages/ContactPage";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { SignInModal } from "./components/Header/SignInModal";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
    return (
-      <>
+      <AuthProvider>
          <Header />
          <main id="main">
             <Routes>
@@ -24,7 +25,7 @@ function App() {
             </Routes>
          </main>
          <Footer />
-      </>
+      </AuthProvider>
    );
 }
 

@@ -14,66 +14,13 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import HeaderCSS from "./Header.module.css";
-import { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import {
-   auth,
-   googleAuthProvider,
-   facebookAuthProvider,
-   twitterAuthProvider,
-} from "../../config/firebase";
-import {
-   createUserWithEmailAndPassword,
-   signInWithEmailAndPassword,
-   signInWithPopup,
-} from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
-   const navigate = useNavigate();
+  const {onLoginSubmit, onRegisterSubmit, signInWithGoogle, signInWithFacebook, signInWithTwitter} = useContext(AuthContext);
 
-   const onRegisterSubmit = async () => {
-      try {
-         await createUserWithEmailAndPassword(auth, email, password);
-         navigate("/");
-      } catch (err) {
-         console.error(err);
-      }
-   };
-
-   const onLoginSubmit = async (e) => {
-      e.preventDefault();
-      try {
-         await signInWithEmailAndPassword(auth, email, password);
-         navigate("/");
-      } catch (err) {
-         console.error(err);
-      }
-   };
-
-   const signInWithGoogle = async () => {
-      try {
-         await signInWithPopup(auth, googleAuthProvider);
-      } catch (err) {
-         console.error(err);
-      }
-   };
-   const signInWithFacebook = async () => {
-      try {
-         await signInWithPopup(auth, facebookAuthProvider);
-      } catch (err) {
-         console.error(err);
-      }
-   };
-   const signInWithTwitter = async () => {
-      try {
-         await signInWithPopup(auth, twitterAuthProvider);
-      } catch (err) {
-         console.error(err);
-      }
-   };
    return (
       <Modal
          className={`modal-dialog-centered ${HeaderCSS.wrapper}`}
@@ -167,7 +114,7 @@ export const SignInModal = ({ show, toggleShow, successfullSubmission }) => {
                         <p>
                            <span>
                               If you don't have profile, click{" "}
-                              <a href="#">here</a>
+                              <Link to='/'>here</Link>
                            </span>
                         </p>
                      </Container>
